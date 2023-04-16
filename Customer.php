@@ -13,10 +13,7 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
    
     $kampanya=$_POST['kampanya'];
     $product_details = explode(':', $product);
-    var_dump($_POST['product']);
-    var_dump($_POST['kampanya']);
-    die;
-    var_dump($product_details);
+
   
     //    'category' =>$product_details[2],
     $kampanya_details = explode(':', $kampanya);
