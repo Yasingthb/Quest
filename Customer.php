@@ -3,8 +3,6 @@ require_once("DBconnection.php");
 require_once("messages.php");
 
 
-var_dump('?name=yasin&email=yasin@yasin.com&phone=5452575522&address=ankara&urun=3:kitap adi:55.55:yasin&kampanya=1:FREEBOOK&count=1');
-var_dump( $_SERVER['REQUEST_METHOD']);
 
 if($_SERVER["REQUEST_METHOD"]=='POST') 
 {
@@ -36,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
         'piece' => $_POST['count']   
       );
     
-      var_dump($params['product_id']);
+
       if ($product_details[3]*intval($_POST['count']) >= 200) {
         echo "Tebrikler, Ücretsiz kargo kazandınız<br>";
         $params["shipping_cost"] = 0;
@@ -48,12 +46,12 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
       $campaigns = $query->fetchAll();
       $campaigns1= $campaigns[0];
       $campaigns2= $campaigns[1];
-      var_dump($campaigns1['book_category']);
+
       
       $temp_after_freebook=($params['amount']-$product_details[3]);
 
       $temp_after_percent=$params['amount']-($params['amount']*floatval($campaigns2['discount_rate']));
-      var_dump($campaigns2['discount_rate']);
+
       
       function applyPercentDiscount($amount) {
         return $amount;
@@ -66,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
 
 
 
-    var_dump($product_details[2].':'.$campaigns1['book_category']);
+
       if ($params['campaign_name'] == 'percent_discount' && $temp_after_percent > $temp_after_freebook) {
         echo "Yüzdelik indirimi seçtiniz ancak sepetiniz için ücretsiz kitap indirimi(FREEBOOK) uygundur.";
         $params['amount'] = applyFreeBookDiscount($temp_after_freebook);
@@ -79,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
         if ($temp_after_percent < $temp_after_freebook) {
             if ($product_details[2] === $campaigns1['book_category'] ) {
                 function_alert('Ücretsiz bir kitap hediyesi seçtiniz ancak sepetiniz için yüzdelik indirim (percent_discount) daha uygundur.');
-                var_dump('deneme0');
+
                 $params['campaign_name'] = 'percent_discount';
                 $params['amount'] = applyPercentDiscount($temp_after_percent);
             } else {
@@ -113,7 +111,7 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
       
 
     }
-     var_dump( $params['campaign_name']);
+
     $sql = 'INSERT INTO customer_details (name, email, phone, address, product_id, campaign_id, amount, shipping_cost, campaign_name, customer_buy,piece)
     VALUES (:customer_name, :customer_email, :customer_phone, :customer_address, :product_id, :campaign_id, :amount, :shipping_cost, :campaign_name, :book_name,:piece)';
     try {

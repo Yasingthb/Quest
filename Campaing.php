@@ -1,6 +1,6 @@
 <?php 
 
-  var_dump($_SERVER['REQUEST_METHOD']);
+
   
 require_once("DBconnection.php");
 require_once("messages.php");
